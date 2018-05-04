@@ -1,8 +1,6 @@
 #!/usr/bin/env node
 'use strict';
 
-/* eslint no-unused-vars: off */
-
 /**
  * Module dependencies.
  */
@@ -25,10 +23,7 @@ const mocha = new Mocha();
  * Save timer references to avoid Sinon interfering (see GH-237).
  */
 
-const Date = global.Date;
-const setTimeout = global.setTimeout;
 const setInterval = global.setInterval;
-const clearTimeout = global.clearTimeout;
 const clearInterval = global.clearInterval;
 
 /**
@@ -137,15 +132,6 @@ let globals = [];
  */
 
 const requires = [];
-
-/**
- * Images.
- */
-
-const images = {
-  fail: path.join(__dirname, '..', 'assets', 'growl', 'error.png'),
-  pass: path.join(__dirname, '..', 'assets', 'growl', 'ok.png')
-};
 
 // options
 
