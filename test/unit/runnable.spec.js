@@ -27,11 +27,20 @@ describe('Runnable(title, fn)', function() {
     });
   });
 
-  describe('#timeout(ms) when ms>2^31', function() {
+    describe('when ms>2^31', function() {
     it('should set disabled', function() {
       var run = new Runnable();
       run.timeout(1e10);
       assert(run.enableTimeouts() === false);
+      });
+    });
+
+    describe('when passed a string', function() {
+      it('should convert to number', function() {
+        var run = new Runnable();
+        run.timeout('100');
+        expect(run.timeout()).to.equal(100);
+      });
     });
   });
 
@@ -517,6 +526,19 @@ describe('Runnable(title, fn)', function() {
       test.run(function() {
         assert(!test.isFailed());
       });
+    });
+      });
+
+  describe('#resetTimeout()', function() {
+    it('should not time out if timeouts disabled after reset', function(done) {
+      var test = new Runnable('foo', function() {});
+      test.timeout(10);
+      test.resetTimeout();
+      test.enableTimeouts(false);
+      setTimeout(function() {
+        expect(test.timedOut).not.to.be.ok();
+        done();
+      }, 20);
     });
   });
 });
